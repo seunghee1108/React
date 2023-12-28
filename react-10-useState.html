@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root"></div>
+  <button id="addPackButton">Open!</button>
+
+  <script>
+    let globalState = {
+      packs: 10
+    }
+    
+    function createCardPack(index) {
+      const pack = document.createElement("div");
+      pack.id = `pack-${index}`;
+      pack.innerText = `pack ${index + 1}`;
+      pack.style.cursor = "pointer";
+      pack.isOpen = false;
+
+      pack.addEventListener("click", () => {
+        if (pack.isOpen) {
+          pack.isOpen = false;
+        } else {
+          pack.style.backgroundColor = "white"
+        }
+      });
+      return pack;
+    }
+
+    function renderPacks() {
+      const root = document.getElementById("root");
+      root.innerHTML = "";
+      for (let i=0; i < globalState.packs; i ++) {
+        root.appendChild(createCardPack(i));
+      }
+    }
+    function addPack() {
+      globalState.packs++;
+      renderPacks();
+    }
+
+    const addPackButton = document.getElementById("addPackButton");
+    addPackButton.addEventListener("click", addPack);
+    
+    renderPacks();
+  </script>
+
+</body>
+</html>
